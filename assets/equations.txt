@@ -1,0 +1,4 @@
+\frac{dy}{dx}=y'\left(x\right) \\
+\Delta y\ =\ y'\left(x\right)\cdot \Delta x \\
+y_{new}=y_{old} + \Delta y \\
+x_{new}=x_{old} + \Delta x
