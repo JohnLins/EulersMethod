@@ -6,12 +6,12 @@
 
 #define DEN 30
 
-#define SCREENWIDTH DEN * 50
-#define SCREENHEIGHT DEN * 20
+#define SCREENWIDTH DEN * 30
+#define SCREENHEIGHT DEN * 30
 #define ONE (SCREENWIDTH/DEN)
 
 float differential(float x, float y){
-    return x;
+    return y*x*sin(x);
 }
 
 void initMx();
@@ -26,8 +26,8 @@ int main(){
     const float dx = .1;
     float dy = 0;
 
-    float target = 1.3;
-    const int times = (int)(ceil((target - x)/dx) + 1);
+    float target = 4.4;
+    const int times = (int)(ceil((target - x)/dx) );
     float pastCoordinates[times-1][2];
      
     for(int i = 0; i < times; i++){
@@ -59,30 +59,24 @@ int main(){
               rlPopMatrix();
                 DrawText(FormatText("(%f, %f)", pastCoordinates[i][0], pastCoordinates[i][1]), (pastCoordinates[i][0] * ONE + (ONE/10)) + SCREENWIDTH/2, SCREENHEIGHT/2 -  pastCoordinates[i][1] * ONE + (ONE/10) , 10, BLACK);
               initMx();
-                
-                
-                //if(i != times){
-                    //DrawLine(pastCoordinates[i][0], pastCoordinates[i][1], pastCoordinates[i+1][0], pastCoordinates[i+1][1], GREEN);
-                //}
+
             }
             
-            
-            for(int i = -SCREENWIDTH; i <= SCREENWIDTH; i+=ONE){
+         
+           
+           for(int i = -SCREENWIDTH; i <= SCREENWIDTH; i+=ONE){
                 for(int j = -SCREENHEIGHT; j <= SCREENHEIGHT; j+=ONE){
-                    float theta = atan(differential(i, j));
+                    float theta = atanf(differential(i, j)) / 2;
+                    
                     
                   if(i < 0){theta += PI;}
                   if(j < 0 && i > 0){theta += 2*PI;}
                    
                     
-                    float r = ONE/2;
+                    double r = ONE/2;
                    DrawCircle(i, j, 2, BLUE);
-                   //DrawLine(i, j,(i + r*cos(theta)), (j + r*sin(theta)), BLUE);
-                 
-                 
-                 //  float norm = 1;//sqrtf( powf(ONE,2) + powf(ONE * differential(i,j),2));
-                   //DrawLine(i, j, i + ONE/norm, j + ONE*differential(i,j)/norm, RED)
-;                   
+                   DrawLine(i, j,((double)i + (double)r*(double)cos(theta)), ((double)j + (double)r*(double)sin(theta)), BLUE);
+   
                     
                 }
             }
