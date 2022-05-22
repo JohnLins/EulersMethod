@@ -11,7 +11,7 @@
 #define ONE (SCREENWIDTH/DEN)
 
 float differential(float x, float y){
-    return y*x*sin(x);
+    return sin(x * y);
 }
 
 void initMx();
@@ -20,20 +20,20 @@ int main(){
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "Euler's Method Sim - John Lins");
 
-    float x = 1;
-    float y = 3;
+    float x = 0;
+    float y = 1;
 
-    const float dx = .1;
+    const float dx = 1.57;
     float dy = 0;
 
-    float target = 4.4;
+    float target = 7.85398;
     const int times = (int)(ceil((target - x)/dx) );
     float pastCoordinates[times-1][2];
      
     for(int i = 0; i < times; i++){
-        printf("x: %f, y: %f\n", x, y);
-        dy = differential(x, y) * dx;
         
+        dy = differential(x, y) * dx;
+        printf("x: %f, y: %f ; STEP: (%f, %f) \n", x, y, dx, dy);
         pastCoordinates[i][0] = x; pastCoordinates[i][1] = y;  
         y = y + dy;
         x = x + dx;
@@ -57,7 +57,7 @@ int main(){
                 
                 
               rlPopMatrix();
-                DrawText(FormatText("(%f, %f)", pastCoordinates[i][0], pastCoordinates[i][1]), (pastCoordinates[i][0] * ONE + (ONE/10)) + SCREENWIDTH/2, SCREENHEIGHT/2 -  pastCoordinates[i][1] * ONE + (ONE/10) , 10, BLACK);
+                DrawText(FormatText("(%f, %f)", pastCoordinates[i][0], pastCoordinates[i][1]), (pastCoordinates[i][0] * ONE + (ONE/10)) + SCREENWIDTH/2, SCREENHEIGHT/2 -  pastCoordinates[i][1] * ONE + (ONE/10) , 20, BLACK);
               initMx();
 
             }
